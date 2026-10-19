@@ -1,0 +1,575 @@
+/*
+ * Fatoora styles. Layout uses logical properties only (margin-inline, padding-block,
+ * inset-inline-start, text-align: start/end), so the same rules mirror correctly when
+ * <html dir="rtl"> is set. Colours are CSS variables switched by [data-theme].
+ */
+
+:root {
+  --bg: #f4f5f2;
+  --surface: #ffffff;
+  --surface-2: #f8f9f7;
+  --text: #1c2321;
+  --muted: #5d6865;
+  --border: #d9ddd8;
+  --accent: #0f766e;
+  --accent-contrast: #ffffff;
+  --accent-soft: #e0f2ef;
+  --danger: #b42318;
+  --ok: #067647;
+  --shadow: 0 1px 2px rgb(16 24 22 / 6%), 0 8px 24px rgb(16 24 22 / 6%);
+  --radius: 10px;
+  --space: 1rem;
+  --font: system-ui, 'Segoe UI', 'Noto Sans', 'Noto Sans Arabic', Tahoma, 'Geeza Pro', sans-serif;
+  --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --bg: #111615;
+  --surface: #1a201f;
+  --surface-2: #212827;
+  --text: #e7ecea;
+  --muted: #9aa6a2;
+  --border: #323b39;
+  --accent: #2dd4bf;
+  --accent-contrast: #062a26;
+  --accent-soft: #123532;
+  --danger: #f97066;
+  --ok: #47cd89;
+  --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 8px 24px rgb(0 0 0 / 25%);
+
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.5 var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+:lang(ar) body,
+[lang='ar'] {
+  line-height: 1.7;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  line-height: 1.25;
+}
+
+p {
+  margin-block: 0 0.25rem;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.small {
+  font-size: 0.85em;
+}
+
+.pre {
+  white-space: pre-line;
+}
+
+.error {
+  color: var(--danger);
+}
+
+.ok {
+  color: var(--ok);
+}
+
+/* ---------- Shell ---------- */
+
+.app {
+  max-inline-size: 1440px;
+  margin-inline: auto;
+  padding: var(--space);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.brand h1 {
+  font-size: 1.35rem;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: var(--accent-contrast);
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.status {
+  min-block-size: 1.5rem;
+  margin-block: 0.5rem;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: calc(var(--space) * 1.5);
+  align-items: start;
+}
+
+.editor {
+  display: grid;
+  gap: var(--space);
+}
+
+.preview {
+  position: sticky;
+  inset-block-start: var(--space);
+}
+
+/* ---------- Controls ---------- */
+
+.btn {
+  appearance: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  padding-block: 0.4rem;
+  padding-inline: 0.8rem;
+  cursor: pointer;
+  transition:
+    background-color 120ms,
+    border-color 120ms;
+}
+
+.btn:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contrast);
+  font-weight: 600;
+}
+
+.btn-icon {
+  inline-size: 2.25rem;
+  padding-inline: 0;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.panel {
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: var(--space);
+  min-inline-size: 0;
+}
+
+.panel > legend,
+.panel > summary {
+  padding-inline: 0.35rem;
+  font-weight: 650;
+}
+
+.panel > summary {
+  cursor: pointer;
+}
+
+.grid-2,
+.grid-3 {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-block-end: 0.75rem;
+}
+
+.grid-2.gap {
+  gap: var(--space);
+}
+
+.field {
+  display: grid;
+  gap: 0.25rem;
+  margin-block-end: 0.5rem;
+}
+
+.field-label {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+input,
+select,
+textarea {
+  inline-size: 100%;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+  padding-block: 0.4rem;
+  padding-inline: 0.6rem;
+}
+
+/* Numeric inputs are LTR for typing, but align with the reading direction of the page. */
+input[dir='ltr'] {
+  text-align: start;
+}
+
+:root[dir='rtl'] input[inputmode='decimal'] {
+  text-align: end;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.line-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.line-row {
+  display: grid;
+  grid-template-columns: minmax(8rem, 2.4fr) repeat(4, minmax(4rem, 1fr)) minmax(5rem, 1fr) auto;
+  gap: 0.5rem;
+  align-items: end;
+  padding-block-end: 0.75rem;
+  border-block-end: 1px dashed var(--border);
+}
+
+.line-row .field {
+  margin-block-end: 0;
+}
+
+.line-total {
+  padding-block: 0.45rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  text-align: end;
+}
+
+.row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-block-start: 0.75rem;
+}
+
+/* ---------- Invoice preview ---------- */
+
+.invoice {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: calc(var(--space) * 1.75);
+  display: grid;
+  gap: calc(var(--space) * 1.25);
+}
+
+.invoice-head {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space);
+  padding-block-end: var(--space);
+  border-block-end: 3px solid var(--accent);
+}
+
+.invoice-title {
+  font-size: 1.5rem;
+  margin-block-end: 0.5rem;
+}
+
+.meta {
+  display: grid;
+  gap: 0.15rem;
+  margin: 0;
+}
+
+.meta > div,
+.totals > div {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.meta dt {
+  color: var(--muted);
+  min-inline-size: 9rem;
+}
+
+.meta dd,
+.totals dd {
+  margin: 0;
+}
+
+.qr {
+  flex-shrink: 0;
+  border-radius: 6px;
+  background: #fff;
+  padding: 4px;
+}
+
+.qr-empty {
+  background: var(--surface-2);
+}
+
+.parties {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space);
+}
+
+.parties h3,
+.words h3,
+.notes h3 {
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-block-end: 0.35rem;
+}
+
+:lang(ar) .parties h3,
+:lang(ar) .words h3,
+:lang(ar) .notes h3 {
+  letter-spacing: 0;
+}
+
+.party-name {
+  font-weight: 650;
+}
+
+table {
+  inline-size: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding-block: 0.45rem;
+  padding-inline: 0.5rem;
+  text-align: start;
+  border-block-end: 1px solid var(--border);
+  vertical-align: top;
+}
+
+th {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: var(--surface-2);
+}
+
+.num {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: calc(var(--space) * 1.5);
+  align-items: start;
+}
+
+.totals {
+  margin: 0;
+  display: grid;
+  gap: 0.2rem;
+}
+
+.totals > div {
+  justify-content: space-between;
+}
+
+.totals dd {
+  font-variant-numeric: tabular-nums;
+}
+
+.totals .grand {
+  margin-block-start: 0.35rem;
+  padding-block: 0.5rem;
+  padding-inline: 0.6rem;
+  border-radius: 7px;
+  background: var(--accent-soft);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.words p {
+  margin-block-end: 0.15rem;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (width <= 1100px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .preview {
+    position: static;
+  }
+}
+
+@media (width <= 640px) {
+  .grid-2,
+  .grid-3,
+  .parties,
+  .summary {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .line-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .line-row .line-desc {
+    grid-column: 1 / -1;
+  }
+
+  .invoice {
+    padding: var(--space);
+  }
+
+  .invoice-head {
+    flex-direction: column;
+  }
+
+  .items {
+    font-size: 0.85rem;
+  }
+}
+
+/* ---------- Print: only the invoice, black on white, A4 friendly ---------- */
+
+@page {
+  size: A4;
+  margin: 14mm;
+}
+
+@media print {
+  :root,
+  :root[data-theme='dark'] {
+    --bg: #fff;
+    --surface: #fff;
+    --surface-2: #f3f4f3;
+    --text: #000;
+    --muted: #444;
+    --border: #bbb;
+    --accent: #0f766e;
+    --accent-soft: #eef6f5;
+
+    color-scheme: light;
+  }
+
+  body {
+    font-size: 11pt;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .app {
+    padding: 0;
+    max-inline-size: none;
+  }
+
+  .layout {
+    display: block;
+  }
+
+  .preview {
+    position: static;
+  }
+
+  .invoice {
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .summary,
+  .words,
+  tr {
+    break-inside: avoid;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  * {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
