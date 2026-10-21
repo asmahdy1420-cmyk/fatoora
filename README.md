@@ -7,6 +7,16 @@ Fatoora handles the details that generic invoice templates get wrong for the reg
 layout, three-decimal currencies (BHD, KWD, OMR), VAT broken down per rate, amounts spelled out
 in correct Arabic and English, and a QR code carrying the seller and totals.
 
+## Screenshots
+
+![English view of a filled-in invoice with totals, amount in words and QR code](docs/screenshots/english-invoice.png)
+
+English view with a sample Saudi invoice (SAR, 15% and 0% lines): per-rate VAT breakdown, totals, amount in words and the TLV QR code. The names and numbers are made-up demo data.
+
+![Arabic right-to-left view of the same invoice with Arabic-Indic digits](docs/screenshots/arabic-rtl-invoice.png)
+
+The same invoice in Arabic with Arabic-Indic digits. The whole layout mirrors because it is built from logical CSS properties.
+
 ## Why
 
 Freelancers and small firms in the Gulf often need an invoice that reads properly in both Arabic
